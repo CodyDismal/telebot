@@ -11,6 +11,7 @@ from random import *
 from job import *
 from global_messages import *
 from threading import *
+from games import *
 
 bot = telebot.TeleBot(global_vars.private_key)
 last_time = None
@@ -90,6 +91,12 @@ def echo_all(message):
     chat_id = chat_id
     
 
+
+    if (message.text == "Math game"):
+        g = Math_game(a)
+        bot.send_message(chat_id, g.get_req_string(), reply_markup=sleep_markup)
+        save_mini_game(g, chat_id)
+        return
 
     if (message.text == u"Find cat's job"):
         j = Job()
@@ -171,12 +178,31 @@ def echo_all(message):
 
 
 
+    
+
+
     if (message.text == u'⛔️'):
+        a.action = "Main menu"
         if (a.action == "At work"):
             bot.send_message(chat_id, "End of work day! Your balance is {0}$!".format(a.money))
-        a.action = "Main menu"
+        if (a.action == "Game"):
+            sti = open('./Images/after_game.webp', 'rb')
+            bot.send_sticker(chat_id, sti, reply_markup=main_menu_markup)
+            return
     
     
+    if (a.action == "Game"):
+        g = load_mini_game(a.id)
+        if (g.is_correct(message.text)):
+            bot.send_message(chat_id, "Correct!")
+        else:
+            bot.send_message(chat_id, "Not correct!")
+        g = Math_game(a)
+        bot.send_message(chat_id, g.get_req_string(), reply_markup=sleep_markup)
+        save_mini_game(g, chat_id)
+        return
+
+        
     if (message.text == u'❤️'):
         sti = open('./Images/very_loving.webp', 'rb')
         bot.send_sticker(chat_id, sti, reply_markup=main_menu_markup)
@@ -188,7 +214,10 @@ def echo_all(message):
     if (randrange(0,10) == 0):
         send_message_to_random_user(bot, "love")
 
+
     del a
+
+    
 
 def auto_count(interval):
     while True:
@@ -196,6 +225,7 @@ def auto_count(interval):
         print g_b.get_list()
         for i in g_b.get_list():
             a = load_user(i)
+
             if (a == -1): return 
             cat_name = a.name
             

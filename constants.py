@@ -18,10 +18,10 @@ itembtn1 = types.KeyboardButton('⛔️')
 sleep_markup.add(itembtn1)
 
 games_markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
-itembtn1 = types.KeyboardButton('Casino')
-itembtn2 = types.KeyboardButton('2 ? 3')
+itembtn1 = types.KeyboardButton('Math game')
+
 cancel = types.KeyboardButton("⛔️")
-games_markup.add(itembtn1, itembtn2, cancel)
+games_markup.add(itembtn1, cancel)
 
 
 money_markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=1)

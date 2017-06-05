@@ -1,0 +1,26 @@
+(igames
+Math_game
+p0
+(dp1
+S'_type'
+p2
+S'math_game'
+p3
+sS'_action'
+p4
+S'+'
+p5
+sS'_string'
+p6
+S'26 + 59'
+p7
+sS'_ans'
+p8
+I85
+sS'_b'
+p9
+I59
+sS'_a'
+p10
+I26
+sb.

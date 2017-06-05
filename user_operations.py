@@ -1,6 +1,9 @@
 import pickle
 import os
 
+
+
+
 class Animal:
     """Animal class"""
     def __init__(self, id):
@@ -35,14 +38,26 @@ def load_user(id):
         return -1
         
 def save_user(obj):
-    print ("Saved user")
+   
     obj.food = round(obj.food, 1)
     obj.water = round(obj.water, 1)
     obj.power = round(obj.power, 1)
     obj.money = round(obj.money, 1)
     with open("saves/{0}.save".format(obj.id), 'wb') as f:
         pickle.dump(obj, f)
+    print ("Saved user {0}!".format(obj.id))
 
 def remove_user(obj):
     os.remove("saves/{0}.save".format(obj))
 
+def save_mini_game(obj, id):
+    with open("saves/{0}.mgame".format(id), 'wb') as f:
+        pickle.dump(obj, f)
+
+def load_mini_game(id):
+    if (os.path.isfile("saves/{0}.mgame".format(id))): 
+        with open("saves/{0}.mgame".format(id), 'rb') as f:
+            a = pickle.load(f)
+        return a
+    else:
+        return -1
